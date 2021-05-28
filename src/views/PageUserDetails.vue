@@ -7,7 +7,7 @@
       <div class="col-md-3 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           <img
-            class="rounded-circle mt-5"
+            class="rounded-circle mt-5 image"
             :src="user.avatarUrl"
           >
         </div>
@@ -40,6 +40,13 @@
                 <dt>Gender : </dt>
                 <dd>{{ user.gender }}</dd>
               </div>
+              <button
+              class="btn btn-primary profile-button"
+              type="button"
+              @click="modify = true"
+            >
+              Editez profile:
+            </button>
             </dl>
           </div>
         </div>
@@ -52,7 +59,7 @@
       <div class="col-md-3 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           <img
-            class="rounded-circle mt-5"
+            class="rounded-circle mt-5 image"
             :src="user.avatarUrl"
           >
         </div>
@@ -111,7 +118,7 @@
           <div class="row mt-3" />
           <div class="mt-5 text-center">
             <input
-              value="1991-05-03"
+              v-model="user.birthDate"
               class="btn btn-primary profile-button"
               type="date"
             >
@@ -147,16 +154,21 @@ export default {
     const p = axios.get(`https://ynov-front.herokuapp.com/api/users/${this.$route.params.id}`)
       .then( (r) => {
               this.user = r.data.data
-              this.user.birthDate = new Date(Date.now() - new Date(this.user.birthDate).getTime()).getFullYear() - 1970
+              this.user.birthDate = this.modifyDate(Date.parse(new Date(r.data.data.birthDate)))
       } )
       return p
   },
     methods: {
+      zeroPad(number){
+        return number < 10 ? '0' + number : number
+      },
       modifyDate(date){
         date = new Date(date)
-        return +date.getFullYear()+
-          "/"+(date.getMonth()+1)+
-          "/"+date.getDay()
+        const year = date.getFullYear();
+        const month = this.zeroPad(date.getMonth() + 1);
+        const day = this.zeroPad(date.getDate());
+        const dateString = `${year}-${month}-${day}`;
+        return dateString
       },
 
       ModifProfile() {
@@ -173,3 +185,11 @@ export default {
 
 }
 </script>
+
+<style >
+
+  .image{
+    width: 100%!important;
+    height: 100%;
+  }
+</style>
