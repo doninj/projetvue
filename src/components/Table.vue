@@ -5,11 +5,11 @@
   >
     <thead>
       <tr>
-        <th />
+        <th >Avatar</th>
         <th @click="sort('name')">Nom</th>
         <th @click="sort('email')"> Email</th>
         <th>Tel</th>
-        <th  @click="sort('age')">Naissance</th>
+        <th @click="sort('age')">Naissance</th>
         <th>Gender</th>
       </tr>
     </thead>
@@ -19,7 +19,7 @@
         :key="user.email"
       >
         <td>
-          <img :src="user.avatar">
+          <img class="imageSize" :src="user.avatar">
         </td>
         <td v-html="user.nameFormated" />
         <td>{{ user.email }}</td>
@@ -86,5 +86,9 @@ export default {
 
   .highlightText {
     background: yellow;
+  }
+  .imageSize{
+    width: 50px;
+    height: 50px;
   }
 </style>
