@@ -5,11 +5,17 @@
   >
     <thead>
       <tr>
-        <th >Avatar</th>
-        <th @click="sort('name')">Nom</th>
-        <th @click="sort('email')"> Email</th>
+        <th>Avatar</th>
+        <th @click="sort('name')">
+          Nom
+        </th>
+        <th @click="sort('email')">
+          Email
+        </th>
         <th>Tel</th>
-        <th @click="sort('age')">Naissance</th>
+        <th @click="sort('age')">
+          Naissance
+        </th>
         <th>Gender</th>
       </tr>
     </thead>
@@ -17,15 +23,19 @@
       <tr
         v-for="user in sortFilter"
         :key="user.email"
+        @click="goToUser(user.id)"
       >
-        <td>
-          <img class="imageSize" :src="user.avatar">
-        </td>
-        <td v-html="user.nameFormated" />
-        <td>{{ user.email }}</td>
-        <td>{{ user.phone }}</td>
-        <td>{{ user.age }}</td>
-        <td>{{ user.gender }}</td>
+          <td>
+            <img
+              class="imageSize"
+              :src="user.avatar"
+            >
+          </td>
+          <td v-html="user.nameFormated" />
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
+          <td>{{ user.age }}</td>
+          <td>{{ user.gender }}</td>
       </tr>
     </tbody>
   </table>
@@ -33,6 +43,15 @@
 
 <script>
 export default {
+  props: {
+    filterList: Array
+  },
+  data () {
+    return {
+      sortBy: '',
+      sortDirection: 'asc',
+    }
+  },
   computed :{
     sortFilter(){
     return [...this.filterList].sort((p1, p2) => {
@@ -45,6 +64,10 @@ export default {
     }
   },
   methods: {
+    goToUser(id){
+      console.log(id)
+   this.$router.push({ name: 'userDetail', params: { id: id } });
+    },
           sort: function (sortby) {
         if (sortby === this.sortBy) {
           if (this.sortDirection === 'desc') {
@@ -62,15 +85,6 @@ export default {
         this.sortBy = sortby;
 
       }
-  },
-  data () {
-    return {
-      sortBy: '',
-      sortDirection: 'asc',
-    }
-  },
-  props: {
-    filterList: Array
   },
 }
 </script>

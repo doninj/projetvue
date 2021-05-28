@@ -66,16 +66,16 @@ export default {
       }
     },
   methods: {
-    getAge(dateString) {
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age;
-},
+//     getAge(dateString) {
+//     var today = new Date();
+//     var birthDate = new Date(dateString);
+//     var age = today.getFullYear() - birthDate.getFullYear();
+//     var m = today.getMonth() - birthDate.getMonth();
+//     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+//         age--;
+//     }
+//     return age;
+// },
     nameEmit(value) {
       console.log(value)
       this.name = value
@@ -88,11 +88,12 @@ export default {
             self.loading = false
           this.nonFilteredUsers = r.data.data.map(user => {
             return {
+              id: user._id,
               email: user.email,
               name : `${user.lastName} ${user.firstName}`,
               phone: user.phone,
               gender: user.gender,
-              age: this.getAge(user.birthDate),
+              age: new Date(Date.now() - new Date(user.birthDate).getTime()).getFullYear() - 1970,
               avatar: user.avatarUrl
             }
           });

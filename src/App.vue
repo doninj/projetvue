@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">
-        Home
+      <router-link to="/list">
+        List
       </router-link> |
       <router-link to="/about">
         About
@@ -11,7 +11,12 @@
     <router-view />
   </div>
 </template>
+<script>
+import 'bootstrap/dist/css/bootstrap.min.css';
+export default {
 
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
