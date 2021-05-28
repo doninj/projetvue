@@ -89,7 +89,7 @@ export default {
           this.nonFilteredUsers = r.data.data.map(user => {
             return {
               email: user.email,
-              name : user.lastName,
+              name : `${user.lastName} ${user.firstName}`,
               phone: user.phone,
               gender: user.gender,
               age: this.getAge(user.birthDate),
