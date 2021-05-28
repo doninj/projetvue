@@ -42,7 +42,36 @@
           class="counter"
         >{{ nonFilteredUsers.length }} users</span>
       </div>
-      <item :userFiltered="filteredList"></item>
+      <table
+        id="tbl-users"
+        class="table table-hover"
+      >
+        <thead>
+          <tr>
+            <th />
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Tel</th>
+            <th>Naissance</th>
+            <th>Gender</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="user in filteredList"
+            :key="user.email"
+          >
+            <td>
+              <img :src="user.avatar">
+            </td>
+            <td v-html="user.name" />
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.age }}</td>
+            <td>{{ user.gender }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -50,12 +79,12 @@
 <script>
   import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
-import Item from './Item'
+//import Item from './Item'
 
   export default {
     name: 'AnotherComponent',
      components: {
-    Item
+    //Item
   },
     data() {
       return {
