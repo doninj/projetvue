@@ -1,155 +1,96 @@
 <template>
-  <div class="container rounded bg-white mt-5 mb-5">
+  <div
+    v-if="user"
+    class="container rounded bg-white mt-5 mb-5"
+  >
     <div
       v-if="!modify"
-      class="row"
     >
-      <div class="col-md-3 border-right">
-        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img
-            class="rounded-circle mt-5 image"
-            :src="user.avatarUrl"
-          >
-        </div>
-      </div>
-      <div class="col-md-4 border-right">
-        <div class="p-3 py-5">
-          <div class="row mt-2">
-            <dl>
-              <div class="col-md-12">
-                <dt>Prenom : </dt>
-                <dd>{{ user.firstName }}</dd>
-              </div>
-              <div class="col-md-12">
-                <dt>Nom : </dt>
-                <dd>{{ user.lastName }}</dd>
-              </div>
-              <div class="col-md-12">
-                <dt>Email : </dt>
-                <dd>{{ user.email }}</dd>
-              </div>
-              <div class="col-md-12">
-                <dt>Anniversaire : </dt>
-                <dd>{{ user.birthDate }}</dd>
-              </div>
-              <div class="col-md-12">
-                <dt>Details : </dt>
-                <dd>{{ user.details }}</dd>
-              </div>
-              <div class="col-md-12">
-                <dt>Gender : </dt>
-                <dd>{{ user.gender }}</dd>
-              </div>
-              <button
-              class="btn btn-primary profile-button"
-              type="button"
-              @click="modify = true"
+      <div
+        class="row"
+      >
+        <div class="col-md-3 border-right">
+          <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <img
+              class="rounded-circle mt-5 image"
+              :src="user.avatarUrl"
             >
-              Editez profile:
-            </button>
-            </dl>
           </div>
         </div>
-      </div>
-    </div>
-    <div
-      v-else
-      class="row"
-    >
-      <div class="col-md-3 border-right">
-        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img
-            class="rounded-circle mt-5 image"
-            :src="user.avatarUrl"
-          >
-        </div>
-      </div>
-      <div class="col-md-5 border-right">
-        <div class="p-3 py-5">
-          <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="col-md-4 border-right">
+          <div class="d-flex justify-content-between align-items-center">
             <h4 class="text-right">
               Profile Settings
             </h4>
           </div>
-          <div class="row mt-2">
-            <div class="col-md-6">
-              <label class="labels">Name</label><input
-                v-model="user.firstName"
-                type="text"
-                class="form-control"
-                placeholder="first name"
-              >
+          <div class="p-3 py-5">
+            <div class="row mt-2">
+              <dl>
+                <div class="col-md-12">
+                  <dt>Prenom : </dt>
+                  <dd>{{ user.firstName }}</dd>
+                </div>
+                <div class="col-md-12">
+                  <dt>Nom : </dt>
+                  <dd>{{ user.lastName }}</dd>
+                </div>
+                <div class="col-md-12">
+                  <dt>Email : </dt>
+                  <dd>{{ user.email }}</dd>
+                </div>
+                <div class="col-md-12">
+                  <dt>Anniversaire : </dt>
+                  <dd>{{ user.birthDate }}</dd>
+                </div>
+                <div class="col-md-12">
+                  <dt>Details : </dt>
+                  <dd v-html="details" />
+                </div>
+                <div class="col-md-12">
+                  <dt>Gender : </dt>
+                  <dd>{{ user.gender }}</dd>
+                </div>
+                <button
+                  class="btn btn-primary profile-button"
+                  type="button"
+                  @click="edit"
+                >
+                  Editez profile
+                </button>
+              </dl>
             </div>
-            <div class="col-md-6">
-              <label class="labels">Surname</label><input
-                v-model="user.lastName"
-                type="text"
-                class="form-control"
-                placeholder="surname"
-              >
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-12">
-              <label class="labels">PhoneNumber</label><input
-                v-model="user.phone"
-                type="text"
-                class="form-control"
-                placeholder="enter phone number"
-              >
-            </div>
-            <div class="col-md-12">
-              <label class="labels">Email </label><input
-                v-model="user.email"
-                type="text"
-                class="form-control"
-                placeholder="enter email id"
-              >
-            </div>
-            <div class="col-md-12">
-              <label class="labels">Genre </label><input
-                v-model="user.gender"
-                type="text"
-                class="form-control"
-                placeholder="enter email id"
-              >
-            </div>
-          </div>
-          <div class="row mt-3" />
-          <div class="mt-5 text-center">
-            <input
-              v-model="user.birthDate"
-              class="btn btn-primary profile-button"
-              type="date"
-            >
-          </div>
-          <div class="mt-5 text-center">
-            <button
-              class="btn btn-primary profile-button"
-              type="button"
-              @click="ModifProfile"
-            >
-              Save Profile
-            </button>
           </div>
         </div>
       </div>
-      <div class="col-md-4" />
     </div>
+    <Formulaire
+      v-else
+      :user="user"
+      @submit="modifUser"
+      @click="ChangeModify"
+    />
   </div>
 </template>
 
 <script>
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Formulaire from '@/components/Form'
   import axios from 'axios'
 export default {
+    components: { Formulaire },
+
   data () {
     return {
       userModifiy : undefined,
       user: undefined,
       modify:false
-          }
+      }
   },
+computed:{
+  details(){
+     return this.user.details.replace(new RegExp("\\n", "gi"),`<br>`)
+  }
+},
   created(){
     const p = axios.get(`https://ynov-front.herokuapp.com/api/users/${this.$route.params.id}`)
       .then( (r) => {
@@ -159,6 +100,12 @@ export default {
       return p
   },
     methods: {
+      ChangeModify () {
+        this.modify = !this.modify
+      },
+      edit(){
+        this.modify = true
+      },
       zeroPad(number){
         return number < 10 ? '0' + number : number
       },
@@ -171,15 +118,22 @@ export default {
         return dateString
       },
 
-      ModifProfile() {
-        const payload = this.user
-        axios.put(`https://ynov-front.herokuapp.com/api/users/${this.$route.params.id}`,payload)
+      modifUser(user) {
+        console.log(user)
+        const payload = user
+        axios.put(`https://ynov-front.herokuapp.com/api/users/${user._id}`,payload)
         .then( () => {
-          console.log("modif faites")
+           this.$notify({
+              group: 'foo',
+              title: 'Important message',
+              text: `Modification de l'utilisateur éffectué`,
+              type: 'success',
+              Width: '100px'});
         })
         .catch((error) => {
           console.log(error)
         })
+        this.$router.push({ name: 'List' })
       }
     }
 

@@ -1,13 +1,15 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div  class="row" id="nav">
       <router-link to="/list">
-        List
-      </router-link> |
-      <router-link to="/about">
-        About
+        Retour à la liste
       </router-link>
     </div>
+    <notifications
+      position="bottom center"
+      group="foo"
+      width='50%'
+    />
     <router-view />
   </div>
 </template>
@@ -18,6 +20,16 @@ export default {
 }
 </script>
 <style>
+  .vue-notification {
+  padding: 10px;
+  margin: 0 5px 5px;
+  font-size: 20px!important;
+  color: #ffffff;
+}
+.vue-notification.success {
+    background: #42A85F;
+    border-left-color: #42A85F;
+  }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -28,6 +40,7 @@ export default {
 
 #nav {
   padding: 30px;
+  text-align: initial;
 }
 
 #nav a {

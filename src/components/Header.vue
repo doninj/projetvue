@@ -7,6 +7,13 @@
     >
       Fetch users
     </button>
+    <button
+      id="fetch-users"
+      class="btn btn-primary mr-4"
+      @click="showModal"
+    >
+      add user
+    </button>
     <input
       v-model="name"
       type="text"
@@ -66,6 +73,9 @@ export default {
   methods: {
     fetchUsers () {
       this.$emit('fetchuser')
+    },
+    showModal () {
+      this.$emit('showmodal')
     },
     genderChange(event) {
       console.log(event)

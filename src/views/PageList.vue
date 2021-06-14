@@ -4,31 +4,41 @@
       v-model="gender"
       :filtered="filteredList.length"
       :non-filtered="nonFilteredUsers.length"
+      :options="['all','male','female']"
       @fetchuser="fetchUser"
       @name="nameEmit"
-      :options="['all','male','female']"
+      @showmodal="showModal"
     />
-    <div  v-if="loading" class="items-center justify-center loader ">Loading...</div>
-    <div v-else><Table :filter-list="filteredList" />
-</div>
+    <div
+      v-if="loading"
+      class="items-center justify-center loader "
+    >
+      Loading...
+    </div>
+    <div v-else>
+      <Table :filter-list="filteredList" />
+      <div>
+        <Modale
+          v-if="Modal"
+          @close=" Modal = false"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header'
 import Table from '@/components/Table'
+import Modale from '@/components/Modal'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //import Table from '@/components/Table'
 import axios from 'axios'
 //import Table from '@/components/Table'
 export default {
-  created () {
-    setTimeout(() => {  this.fetchUser() }, 1000);
-
-  },
   name: 'PageListe',
-  components: { Header, Table },
+  components: { Header, Table, Modale },
   props: {
   },
   data () {
@@ -36,7 +46,8 @@ export default {
       gender: '',
       nonFilteredUsers: [],
       name:'',
-      loading:true
+      loading:true,
+      Modal:false
     }
   },
   computed: {
@@ -65,6 +76,10 @@ export default {
         })
       }
     },
+  created () {
+    setTimeout(() => {  this.fetchUser() }, 1000);
+
+  },
   methods: {
 //     getAge(dateString) {
 //     var today = new Date();
@@ -79,6 +94,10 @@ export default {
     nameEmit(value) {
       console.log(value)
       this.name = value
+    },
+    showModal () {
+      this.Modal = !this.Modal
+      console.log(true)
     },
     fetchUser() {
       const self = this
