@@ -52,7 +52,7 @@ export default {
   },
   data () {
     return {
-      gender: '',
+      gender: 'all',
       nonFilteredUsers: [],
       name:'',
       loading:true,

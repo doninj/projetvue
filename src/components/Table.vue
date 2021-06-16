@@ -22,8 +22,8 @@
     </thead>
     <tbody>
       <tr
-        v-for="user in sortFilter"
-        :key="user.email"
+        v-for="(user, index) in sortFilter"
+        :key="index"
       >
         <td>
           <img
@@ -77,6 +77,7 @@ export default {
     deleteUser(id){
       console.log(id)
       this.$emit('delete',id)
+      // this.$forceUpdate()
     },
     goToUser(id){
       console.log(id)

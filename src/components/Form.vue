@@ -25,24 +25,24 @@
               <label
                 for="firstName"
                 class="labels"
-              >Name</label><input
+              >FirstName</label><input
                 id="firstName"
                 v-model="initialValue.firstName"
                 type="text"
                 class="form-control"
-                placeholder="first name"
+                placeholder="FirstName"
               >
             </div>
             <div class="col-md-6">
               <label
                 for="lastName"
                 class="labels"
-              >Surname</label><input
+              >Lastname</label><input
                 id="lastName"
                 v-model="initialValue.lastName"
                 type="text"
                 class="form-control"
-                placeholder="surname"
+                placeholder="Lastname"
               >
             </div>
           </div>
@@ -68,7 +68,7 @@
                 v-model="initialValue.email"
                 type="text"
                 class="form-control"
-                placeholder="enter email id"
+                placeholder="enter email "
               >
             </div>
             <div class="col-md-12">

@@ -141,7 +141,6 @@ computed:{
         this.$router.push({ name: 'List' })
       }
     }
-
 }
 </script>
 
