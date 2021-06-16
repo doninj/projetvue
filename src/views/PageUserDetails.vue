@@ -94,8 +94,8 @@ computed:{
   created(){
     const p = axios.get(`https://ynov-front.herokuapp.com/api/users/${this.$route.params.id}`)
       .then( (r) => {
-              this.user = r.data.data
-              this.user.birthDate = this.modifyDate(Date.parse(new Date(r.data.data.birthDate)))
+        this.user = r.data.data
+        this.user.birthDate = this.modifyDate(Date.parse(new Date(r.data.data.birthDate)))
       } )
       return p
   },
@@ -123,20 +123,20 @@ computed:{
         const payload = user
         axios.put(`https://ynov-front.herokuapp.com/api/users/${user._id}`,payload)
         .then( () => {
-           this.$notify({
-              group: 'foo',
-              title: 'Important message',
-              text: `Modification de l'utilisateur éffectué`,
-              type: 'success',
-              Width: '100px'});
+          this.$notify({
+            group: 'foo',
+            title: 'Important message',
+            text: `Modification de l'utilisateur éffectué`,
+            type: 'success',
+            Width: '100px'});
         })
         .catch((error) => {
           this.$notify({
-              group: 'foo',
-              title: 'Important message',
-              text: `${error}`,
-              type: 'error',
-              Width: '100px'});
+            group: 'foo',
+            title: 'Important message',
+            text: `${error}`,
+            type: 'error',
+            Width: '100px'});
         })
         this.$router.push({ name: 'List' })
       }

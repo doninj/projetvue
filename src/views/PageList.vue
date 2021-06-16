@@ -103,24 +103,26 @@ export default {
     AddUser(user) {
         console.log(user)
         const payload = user
+        const self = this
         axios.post(`https://ynov-front.herokuapp.com/api/users`,payload)
         .then( () => {
-           this.$notify({
-              group: 'foo',
-              title: 'Important message',
-              text: `Ajout d'un utilisateur éffectué`,
-              type: 'success',
-              Width: '100px'});
+          this.$notify({
+            group: 'foo',
+            title: 'Important message',
+            text: `Ajout d'un utilisateur éffectué`,
+            type: 'success',
+            Width: '100px'});
+            self.Modal = false
         })
         .catch((error) => {
           this.$notify({
-              group: 'foo',
-              title: 'Important message',
-              text: `${error}`,
-              type: 'error',
-              Width: '100px'});
+            group: 'foo',
+            title: 'Important message',
+            text: `${error}`,
+            type: 'error',
+            Width: '100px'});
         })
-        this.$router.push({ name: 'List' })
+        //this.$router.push({ name: 'List' })
       },
     nameEmit(value) {
       console.log(value)
