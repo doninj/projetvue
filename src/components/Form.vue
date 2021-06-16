@@ -22,54 +22,54 @@
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
-              <label
-                for="firstName"
-                class="labels"
-              >FirstName</label><input
-                id="firstName"
+              <InputForm
                 v-model="initialValue.firstName"
-                type="text"
-                class="form-control"
+                class-input="form-control"
+                class-label="labels"
+                type-input="text"
+                id-input="firstname"
+                for-label="firstname"
+                text-label="FirstName"
                 placeholder="FirstName"
-              >
+              />
             </div>
             <div class="col-md-6">
-              <label
-                for="lastName"
-                class="labels"
-              >Lastname</label><input
-                id="lastName"
+              <InputForm
                 v-model="initialValue.lastName"
-                type="text"
-                class="form-control"
+                class-input="form-control"
+                class-label="labels"
+                type-input="text"
+                id-input="lastName"
+                for-label="lastName"
+                text-label="Lastname"
                 placeholder="Lastname"
-              >
+              />
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-md-12">
-              <label
-                for="phone"
-                class="labels"
-              >PhoneNumber</label><input
-                id="phone"
+              <InputForm
                 v-model="initialValue.phone"
-                type="tel"
-                class="form-control"
+                class-input="form-control"
+                class-label="labels"
+                type-input="tel"
+                id-input="phone"
+                for-label="phone"
+                text-label="PhoneNumber"
                 placeholder="enter phone number"
-              >
+              />
             </div>
             <div class="col-md-12">
-              <label
-                for="email"
-                class="labels"
-              >Email </label><input
-                id="email"
+              <InputForm
                 v-model="initialValue.email"
-                type="text"
-                class="form-control"
-                placeholder="enter email "
-              >
+                class-input="form-control"
+                class-label="labels"
+                type-input="email"
+                id-input="email"
+                for-label="email"
+                text-label="Email"
+                placeholder="enter email"
+              />
             </div>
             <div class="col-md-12">
               <label
@@ -92,85 +92,89 @@
               </select>
             </div>
             <div class="col-md-12">
-              <label
-                for="avatarUrl"
-                class="labels"
-              >ImageUrl </label><input
-                id="avatarUrl"
+              <InputForm
                 v-model="initialValue.avatarUrl"
-                type="text"
-                class="form-control"
+                class-input="form-control"
+                class-label="labels"
+                type-input="text"
+                id-input="avatarUrl"
+                for-label="avatarUrl"
+                text-label="ImageUrl"
                 placeholder="enter Url of image"
-              >
+              />
             </div>
-          </div>
-          <div class="col-md-12">
-            <label
-              for="details"
-              class="labels"
-            >Details </label><textarea
-              id="details"
-              v-model="initialValue.details"
-              type="textarea"
-              class="form-control"
-              placeholder="Your details"
-            />
             <div class="col-md-12">
-              <label
-                for="date"
-                class="labels"
-              >Date de naissance </label>
-              <input
-                id="date"
-                v-model="initialValue.birthDate"
-                class="form-control btn btn-primary profile-button"
-                type="date"
+              <InputForm
+                v-model="initialValue.details"
+                class-input="form-control"
+                class-label="labels"
+                type-input="textarea"
+                id-input="details"
+                for-label="details"
+                text-label="Details"
+                placeholder="Your details"
+              />
+              <div class="col-md-12">
+                <InputForm
+                  v-model="initialValue.birthDate"
+                  class-input="form-control"
+                  class-label="labels"
+                  type-input="date"
+                  id-input="date"
+                  for-label="date"
+                  text-label="Bitrhday"
+                />
+              </div>
+              <div
+                v-if="showAdd == false"
+                class="mt-5 text-center"
               >
-            </div>
-            <div
-              v-if="showAdd == false"
-              class="mt-5 text-center"
-            >
-              <button
-                class=" btn btn-primary profile-button"
-                @click="goToProfile"
+                <button
+                  class=" btn btn-primary profile-button"
+                  @click="goToProfile"
+                >
+                  Go to profile
+                </button>
+                <button
+                  class="btn btn-success profile-button"
+                  type="submit"
+                >
+                  Save Profile
+                </button>
+              </div>
+              <div
+                v-if="showAdd == true"
+                class="mt-5 text-center"
               >
-                Go to profile
-              </button>
-              <button
-                class="btn btn-success profile-button"
-                type="submit"
-              >
-                Save Profile
-              </button>
-            </div>
-            <div
-              v-if="showAdd == true"
-              class="mt-5 text-center"
-            >
-              <button
-                class="btn btn-success profile-button"
-                type="submit"
-              >
-                Add user
-              </button>
+                <button
+                  class="btn btn-success profile-button"
+                  type="submit"
+                >
+                  Add user
+                </button>
+              </div>
             </div>
           </div>
+          <div class="col-md-4" />
         </div>
-        <div class="col-md-4" />
       </div>
     </div>
   </form>
 </template>
 
 <script>
+import InputForm from './Input'
 export default {
+
+    components: { InputForm },
+
 props:{
   user:Object,
   showAdd: Boolean
 },
   data () {
     return {
+      data:'',
       file: undefined,
       initialValue: this.user !=undefined ? this.user : {}
     }
