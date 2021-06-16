@@ -1,14 +1,9 @@
 <template>
   <div id="app">
-    <div  class="row" id="nav">
-      <router-link to="/list">
-        Retour à la liste
-      </router-link>
-    </div>
     <notifications
       position="bottom center"
       group="foo"
-      width='50%'
+      width="50%"
     />
     <router-view />
   </div>
@@ -35,6 +30,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  margin-top: 5%;
   color: #2c3e50;
 }
 

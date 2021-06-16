@@ -15,11 +15,7 @@
             </slot>
           </div>
           <div class="modal-body">
-            <slot name="body">
-              <Formulaire
-              @submit="AddUser"
-              :showAdd="true"/>
-            </slot>
+            <slot />
           </div>
         </div>
       </div>
@@ -28,29 +24,14 @@
 </template>
 
 <script>
- import Formulaire from './Form.vue'
-import axios from 'axios'
+ //import Formulaire from './Form.vue'
 
 export default {
-  components: { Formulaire },
+  //components: { Formulaire },
+  mounted() {
+    document.addEventListener('keydown', (e) => { if(e.key == "Escape") {this.$emit('close')} } )
+  },
   methods: {
-    AddUser(user) {
-        console.log(user)
-        const payload = user
-        axios.post(`https://ynov-front.herokuapp.com/api/users`,payload)
-        .then( () => {
-           this.$notify({
-              group: 'foo',
-              title: 'Important message',
-              text: `Modification de l'utilisateur éffectué`,
-              type: 'success',
-              Width: '100px'});
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-        //this.$router.push({ name: 'List' })
-      },
   },
 
 }
@@ -74,11 +55,11 @@ export default {
 }
 
 .modal-container {
-  width: 800px;
+  width: 60%;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
@@ -92,13 +73,14 @@ export default {
   justify-content: flex-end!important;
 }
 
-.modal-body {
-}
 
 .modal-default-button {
   float: right;
 }
-
+.image{
+    width: 100%!important;
+    height: 100%;
+  }
 .modal-enter {
   opacity: 0;
 }

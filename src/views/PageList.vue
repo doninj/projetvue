@@ -16,12 +16,20 @@
       Loading...
     </div>
     <div v-else>
-      <Table :filter-list="filteredList" />
+      <Table
+        :filter-list="filteredList"
+        @delete=" deleteUser"
+      />
       <div>
         <Modale
           v-if="Modal"
           @close=" Modal = false"
-        />
+        >
+          <Formulaire
+            :show-add="true"
+            @submit="AddUser"
+          />
+        </Modale>
       </div>
     </div>
   </div>
@@ -31,6 +39,7 @@
 import Header from '@/components/Header'
 import Table from '@/components/Table'
 import Modale from '@/components/Modal'
+import Formulaire from '@/components/Form'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //import Table from '@/components/Table'
@@ -38,7 +47,7 @@ import axios from 'axios'
 //import Table from '@/components/Table'
 export default {
   name: 'PageListe',
-  components: { Header, Table, Modale },
+  components: { Header, Table, Modale, Formulaire},
   props: {
   },
   data () {
@@ -91,6 +100,28 @@ export default {
 //     }
 //     return age;
 // },
+    AddUser(user) {
+        console.log(user)
+        const payload = user
+        axios.post(`https://ynov-front.herokuapp.com/api/users`,payload)
+        .then( () => {
+           this.$notify({
+              group: 'foo',
+              title: 'Important message',
+              text: `Ajout d'un utilisateur éffectué`,
+              type: 'success',
+              Width: '100px'});
+        })
+        .catch((error) => {
+          this.$notify({
+              group: 'foo',
+              title: 'Important message',
+              text: `${error}`,
+              type: 'error',
+              Width: '100px'});
+        })
+        this.$router.push({ name: 'List' })
+      },
     nameEmit(value) {
       console.log(value)
       this.name = value
@@ -98,6 +129,17 @@ export default {
     showModal () {
       this.Modal = !this.Modal
       console.log(true)
+    },
+    deleteUser(id){
+      axios.delete(`https://ynov-front.herokuapp.com/api/users/${id}`)
+        .then(() => {
+          this.$notify({
+              group: 'foo',
+              title: 'Important message',
+              text: `Suppression d'un utilisateur éffectué`,
+              type: 'success',
+              Width: '100px'});
+        })
     },
     fetchUser() {
       const self = this

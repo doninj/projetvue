@@ -131,7 +131,12 @@ computed:{
               Width: '100px'});
         })
         .catch((error) => {
-          console.log(error)
+          this.$notify({
+              group: 'foo',
+              title: 'Important message',
+              text: `${error}`,
+              type: 'error',
+              Width: '100px'});
         })
         this.$router.push({ name: 'List' })
       }

@@ -17,25 +17,35 @@
           Naissance
         </th>
         <th>Gender</th>
+        <th>Options</th>
       </tr>
     </thead>
     <tbody>
       <tr
         v-for="user in sortFilter"
         :key="user.email"
-        @click="goToUser(user.id)"
       >
-          <td>
-            <img
-              class="imageSize"
-              :src="user.avatar"
-            >
-          </td>
-          <td v-html="user.nameFormated" />
-          <td>{{ user.email }}</td>
-          <td>{{ user.phone }}</td>
-          <td>{{ user.age }}</td>
-          <td>{{ user.gender }}</td>
+        <td>
+          <img
+            class="imageSize"
+            :src="user.avatar"
+          >
+        </td>
+        <td v-html="user.nameFormated" />
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.age }}</td>
+        <td>{{ user.gender }}</td>
+        <td>
+          <button @click="goToUser(user.id)">
+            modify
+          </button> <button
+            style="background-color:red;color:white"
+            @click="deleteUser(user.id)"
+          >
+            delete
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -64,6 +74,10 @@ export default {
     }
   },
   methods: {
+    deleteUser(id){
+      console.log(id)
+      this.$emit('delete',id)
+    },
     goToUser(id){
       console.log(id)
    this.$router.push({ name: 'userDetail', params: { id: id } });
