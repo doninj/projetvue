@@ -5,8 +5,8 @@
       :class="classLabel"
     >{{ textLabel }}</label><input
       :id="idInput"
-      :value="data"
-      @input="updateText"
+      :value="value"
+      @input="$emit('input', $event.target.value)"
       :type="typeInput"
       :class="classInput"
       :placeholder="placeholder"
@@ -21,7 +21,7 @@ export default {
   }
   },
   props:{
-     value: {
+    value: {
     type: String},
     textLabel:String,
     forLabel:String,
